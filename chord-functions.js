@@ -30,7 +30,6 @@ function getScale(rootNote,rootMod,scaleName) {
     }
     let scaleNumbers = [rootNumber] //reduce extra variable here?
 
-
     for (i = 1; i < 7; i++) {
         //get basic letter roots (c,d,e,f...)
         if (scale[i-1] < 'G'){
@@ -39,11 +38,9 @@ function getScale(rootNote,rootMod,scaleName) {
             scale[i] = 'A'
         }
         // fill in scale numbers
-        scaleNumbers[i] = scaleNumbers[0] + scaleName[i][0]//scaleName[i,0]
+        scaleNumbers[i] = scaleNumbers[0] + scaleName[i][0]
         
     }
-
-    //console.log(scaleNumbers)
 
     // Add accidentals
     let n = []
@@ -71,7 +68,3 @@ function getScale(rootNote,rootMod,scaleName) {
 
     return scale
 }
-
-// myScale = getScale('E',1,minorScale)
-
-// console.log(myScale)
