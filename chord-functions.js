@@ -16,9 +16,33 @@ const noteNumbers = [
     [23,'B'],
     [24,'C']
 ]
-const majorScale = [[0,'maj'],[2,'min'],[4,'min'],[5,'maj'],[7,'maj'],[9,'min'],[11,'dim']]
-const minorScale = [[0,'min'],[2,'dim'],[3,'maj'],[5,'min'],[7,'min'],[8,'maj'],[10,'maj']]
 
+function renderScale() {
+    const scaleDiv = document.querySelector('.scale-div')
+    scaleDiv.innerHTML = ''
+
+    scalesAll.forEach((item) => {
+        if (item.show) {
+            let scale = getScale(ddNote,ddNoteMod,item)
+            const title = document.createElement('h3')
+            title.textContent = `${ddNote} ${item.name}`
+            scaleDiv.appendChild(title)
+            scale.forEach((item)=>{
+                const chordEl = document.createElement('div')
+                const audioEl = document.createElement('audio')
+                audioEl.src = "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+                chordEl.textContent = item
+                chordEl.classList.add('note-div')
+                scaleDiv.appendChild(chordEl)
+                chordEl.addEventListener('click', (e) => {
+                    console.log(`${item} clicked`)
+                    audioEl.play()  
+                })
+            })
+        //scaleDiv.appendChild(document.createElement('br'))  
+        }
+    })
+}
 function getScale(rootNote,rootMod,scaleName) {
     let scale = [rootNote]
     let rootNumber = noteNumbers.find((note) => {
@@ -38,7 +62,8 @@ function getScale(rootNote,rootMod,scaleName) {
             scale[i] = 'A'
         }
         // fill in scale numbers
-        scaleNumbers[i] = scaleNumbers[0] + scaleName[i][0]
+        //console.log(scaleName.chords[i][0])
+        scaleNumbers[i] = scaleNumbers[0] + scaleName.chords[i][0] // fix this
         
     }
 
@@ -63,8 +88,8 @@ function getScale(rootNote,rootMod,scaleName) {
         }
 
         // Add chord types (maj, min, dim)
-        scale[index] += ' ' + scaleName[index][1]
+        scale[index] += ' ' + scaleName.chords[index][1]
     })
-
+    
     return scale
 }

@@ -1,11 +1,24 @@
 let ddNote = 'C'
 let ddNoteMod = 0
-let scalesShown = [
-[majorScale,true],
-[minorScale,false]
-]
 
-renderScale()
+class Scale {
+    constructor(name, show, chords) {
+        this.name = name // scale name (string)
+        this.show = show // show in first group
+        this.chords = chords // chord definition [[root number, 'chord type], ...]
+        this.checkboxEl = document.querySelector(`#${this.name}-checkbox`)
+    }
+}
+
+const majorScaleObject = new Scale('major', true, [[0,'maj'],[2,'min'],[4,'min'],[5,'maj'],[7,'maj'],[9,'min'],[11,'dim']])
+const minorScaleObject = new Scale('minor',false, [[0,'min'],[2,'dim'],[3,'maj'],[5,'min'],[7,'min'],[8,'maj'],[10,'maj']])
+const dorianScaleObject = new Scale('dorian', false, [[0,'min'],[2,'min'],[3,'maj'],[5,'maj'],[7,'min'],[9,'dim'],[10,'maj']])
+const phrygianScaleObject = new Scale('phrygian', false, [[0,'min'],[1,'maj'],[3,'maj'],[5,'min'],[7,'dim'],[8,'maj'],[10,'min']])
+const lydianScaleObject = new Scale('lydian', false, [[0,'maj'],[2,'maj'],[4,'min'],[6,'dim'],[7,'maj'],[9,'min'],[11,'min']])
+const mixolydianScaleObject = new Scale('mixolydian', false, [[0,'maj'],[2,'min'],[4,'dim'],[5,'maj'],[7,'min'],[9,'min'],[10,'maj']])
+const locrianScaleObject = new Scale('locrian', false, [[0,'dim'],[1,'maj'],[3,'min'],[5,'min'],[6,'maj'],[8,'maj'],[10,'min']])
+
+const checkboxAll = [majorScaleObject.checkboxEl,minorScaleObject.checkboxEl,dorianScaleObject.checkboxEl,phrygianScaleObject.checkboxEl,lydianScaleObject.checkboxEl,minorScaleObject.checkboxEl,locrianScaleObject.checkboxEl]
 
 // Create Note Dropdown
 const rootNotes = [
@@ -34,9 +47,8 @@ rootNotes.forEach((item) => {
     var option = document.createElement("option")
     option.text = item[1]
     rootDropdown.add(option)
-
 })
-// Listener for Note Dropdown
+
 rootDropdown.addEventListener('change', (e) => {
     ddNote = e.target.value.charAt(0)
     
@@ -50,41 +62,15 @@ rootDropdown.addEventListener('change', (e) => {
     renderScale()    
 })
 
-// Scale Checkboxes
-const checkMajor = document.querySelector("#major-checkbox")
-const checkMinor = document.querySelector("#minor-checkbox")
+const scalesAll = [majorScaleObject,minorScaleObject,dorianScaleObject,phrygianScaleObject,lydianScaleObject,mixolydianScaleObject,locrianScaleObject]
 
-checkMajor.addEventListener('change', (e) => {
-    scalesShown[0][1] = e.target.checked
-    renderScale()
+// Checkboxes
+scalesAll.forEach((item,index) => {
+    item.checkboxEl.addEventListener('change', (e) => {
+        item.show = e.target.checked
+        renderScale()
+        })
 })
 
-checkMinor.addEventListener('change', (e) => {
-    scalesShown[1][1] = e.target.checked
-    renderScale()
-})
-
-
-function renderScale() {
-    // Clear div
-    const scaleDiv = document.querySelector('.scale-div')
-    scaleDiv.innerHTML = ''
-
-    scalesShown.forEach((item) => {
-        if (item[1]) {
-            let scale = getScale(ddNote,ddNoteMod,item[0])
-            scale.forEach((item)=>{
-                const chordEl = document.createElement('div')
-                chordEl.textContent = item
-                chordEl.classList.add('note-div')
-                scaleDiv.appendChild(chordEl)
-                chordEl.addEventListener('click', (e) => {
-                    console.log(`${item} clicked`)  
-                })
-            })
-        scaleDiv.appendChild(document.createElement('br'))
-            
-        }
-    })
-}
-
+// Initial Render
+renderScale()
