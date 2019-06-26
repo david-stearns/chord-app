@@ -5,24 +5,43 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap" rel="stylesheet">
     </head>
     <body>
+        <header>
+            <h1>Scale Chords</h1>
+        </header>
 
-    <select id = 'note-dropdown' class='dropdown'>
-    </select>
+        <select id = 'note-dropdown' class='dropdown'>
+        </select>
 
+        <div id="checkboxes">
+            <label for="major"><input type="checkbox" id="major-checkbox" class="scale-checkbox" checked>Major</label>
+            <label for="minor"><input type="checkbox" id="minor-checkbox" class="scale-checkbox">Minor</label>
+            <label for="dorian"><input type="checkbox" id="dorian-checkbox" class="scale-checkbox">Dorian</label>
+            <label for="phrygian'"><input type="checkbox" id="phrygian-checkbox" class="scale-checkbox">Phrygian</label>
+            <label for="lydian"><input type="checkbox" id="lydian-checkbox" class="scale-checkbox">Lydian</label>
+            <label for="mixolydian"><input type="checkbox" id="mixolydian-checkbox" class="scale-checkbox">Mixolydian</label>
+            <label for="locrian"><input type="checkbox" id="locrian-checkbox" class="scale-checkbox">Locrian</label>
+        </div>
+
+        <select id = 'note-dropdown-2' class='dropdown'>
+            </select>
     
-    <div id="checkboxes">
-        <label for="major"><input type="checkbox" id="major-checkbox" class="scale-checkbox" checked>Major</label>
-        <label for="minor"><input type="checkbox" id="minor-checkbox" class="scale-checkbox">Minor</label>
-        <label for="dorian"><input type="checkbox" id="dorian-checkbox" class="scale-checkbox">Dorian</label>
-        <label for="phrygian'"><input type="checkbox" id="phrygian-checkbox" class="scale-checkbox">Phrygian</label>
-        <label for="lydian"><input type="checkbox" id="lydian-checkbox" class="scale-checkbox">Lydian</label>
-        <label for="mixolydian"><input type="checkbox" id="mixolydian-checkbox" class="scale-checkbox">Mixolydian</label>
-        <label for="locrian"><input type="checkbox" id="locrian-checkbox" class="scale-checkbox">Locrian</label>
-    </div>
-    <br>
-    <div class='scale-all-div'></div>
-    
-    <script src = "chord-functions.js"></script>
-    <script src = "chord-app.js"></script>
+            <div id="checkboxes-2">
+                <label for="major"><input type="checkbox" id="major-checkbox-2" class="scale-checkbox">Major</label>
+                <label for="minor"><input type="checkbox" id="minor-checkbox-2" class="scale-checkbox" checked>Minor</label>
+                <label for="dorian"><input type="checkbox" id="dorian-checkbox-2" class="scale-checkbox">Dorian</label>
+                <label for="phrygian'"><input type="checkbox" id="phrygian-checkbox-2" class="scale-checkbox">Phrygian</label>
+                <label for="lydian"><input type="checkbox" id="lydian-checkbox-2" class="scale-checkbox">Lydian</label>
+                <label for="mixolydian"><input type="checkbox" id="mixolydian-checkbox-2" class="scale-checkbox">Mixolydian</label>
+                <label for="locrian"><input type="checkbox" id="locrian-checkbox-2" class="scale-checkbox">Locrian</label>
+            </div>
+
+
+
+        <br>
+        <div class='scale-all-div'></div>
+        <br>
+        <div class='scale-all-div-2'></div>
+        <script src = "chord-functions.js"></script>
+        <script src = "chord-app.js"></script>
     </body>
 </html>

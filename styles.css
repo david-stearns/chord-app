@@ -13,6 +13,9 @@ body {
                                   supported by Chrome and Opera */
 }
 
+header {
+    color: rgb(224, 224, 224);
+}
 #checkboxes {
     color: rgb(224, 224, 224);
     font-family: 'Open Sans', sans-serif;

@@ -17,21 +17,29 @@ const noteNumbers = [
     [24,'C']
 ]
 
-function renderScale() {
-    //clear main body
-    const scaleAllDiv = document.querySelector('.scale-all-div')
+function renderScale(scaleGroup) {
+
+
+    const scaleAllDiv = (scaleGroup === 1) ? document.querySelector('.scale-all-div') : document.querySelector('.scale-all-div-2')
     scaleAllDiv.innerHTML = ''
 
     scalesAll.forEach((item) => {
-        if (item.show) {
-            let scale = getScale(ddNote,ddNoteMod,item)
+        if ((scaleGroup === 1 && item.show) || (scaleGroup === 2 && item.show2)) {
+            let scale = (scaleGroup === 1) ? getScale(ddNote,ddNoteMod,item) : getScale(ddNote2,ddNoteMod2,item)
+            const audioChords = scale[1] // Names of audio files
+            scale = scale[0] // Chord Names
 
             const scaleDiv = document.createElement('div') // Scale div
             scaleDiv.classList.add('wrapper')
             scaleAllDiv.appendChild(scaleDiv)
             
             const scaleTitleDiv = document.createElement('div') // Scale title
-            scaleTitleDiv.textContent = `${ddNote} ${item.name}`
+            if (scaleGroup === 1) {
+                scaleTitleDiv.textContent = `${ddNote} ${item.name}`
+            } else {
+                scaleTitleDiv.textContent = `${ddNote2} ${item.name}`
+            }
+            
             scaleTitleDiv.classList.add('scale-name')
             scaleDiv.appendChild(scaleTitleDiv)
 
@@ -59,11 +67,12 @@ function renderScale() {
 
                 // audio
                 const audioEl = document.createElement('audio')
-                const sample = "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
-                //audioEl.src = "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+
+                const sample = 'audio/' + audioChords[index] +'.mp3'
                 audioEl.src = sample
                 chordEl.addEventListener('click', (e) => {
-                    console.log(`${item} clicked`)
+                    //console.log(`${item} clicked`)
+                    console.log(sample)
                     audioEl.play()  
                 })
             })  
@@ -82,6 +91,7 @@ function getScale(rootNote,rootMod,scaleName) {
     }
     let scaleNumbers = [rootNumber] //reduce extra variable here?
 
+    
     for (i = 1; i < 7; i++) {
         //get basic letter roots (c,d,e,f...)
         if (scale[i-1] < 'G'){
@@ -93,6 +103,9 @@ function getScale(rootNote,rootMod,scaleName) {
         scaleNumbers[i] = scaleNumbers[0] + scaleName.chords[i][0] // fix this
         
     }
+
+    // Chord names for audio playback
+    let audioChords = scaleNumbers.slice(0)
 
     // Add accidentals
     let n = []
@@ -116,7 +129,10 @@ function getScale(rootNote,rootMod,scaleName) {
 
         // Add chord types (maj, min, dim)
         scale[index] += ' ' + scaleName.chords[index][1]
+
+        audioChords[index] += scaleName.chords[index][1]
     })
-    
-    return scale
+
+    return [scale, audioChords]
+
 }

@@ -1,24 +1,28 @@
 let ddNote = 'C'
 let ddNoteMod = 0
+let ddNote2 = 'E'
+let ddNoteMod2 = 0
 
 class Scale {
-    constructor(name, show, chords) {
+    constructor(name, show, show2, chords) {
         this.name = name // scale name (string)
         this.show = show // show in first group
+        this.show2 = show2 // show in second group
         this.chords = chords // chord definition [[root number, chord type, chord number], ...]
         this.checkboxEl = document.querySelector(`#${this.name}-checkbox`)
+        this.checkboxEl2 = document.querySelector(`#${this.name}-checkbox-2`)
     }
 }
 
-const majorScale = new Scale('major', true, [[0,'maj','I'],[2,'min','ii'],[4,'min','iii'],[5,'maj','IV'],[7,'maj','V'],[9,'min','vi'],[11,'dim','vii\u1D3C']])
-const minorScale = new Scale('minor',false, [[0,'min','i'],[2,'dim','ii\u1D3C'],[3,'maj','III'],[5,'min','iv'],[7,'min','v'],[8,'maj','VI'],[10,'maj','VII']])
-const dorianScale = new Scale('dorian', false, [[0,'min','i'],[2,'min','ii'],[3,'maj','III'],[5,'maj','IV'],[7,'min','v'],[9,'dim','vi\u1D3C'],[10,'maj','VII']])
-const phrygianScale = new Scale('phrygian', false, [[0,'min','i'],[1,'maj','II'],[3,'maj','III'],[5,'min','iv'],[7,'dim','v\u1D3C'],[8,'maj','VI'],[10,'min','vii']])
-const lydianScale = new Scale('lydian', false, [[0,'maj','I'],[2,'maj','II'],[4,'min','iii'],[6,'dim','iv\u1D3C'],[7,'maj','V'],[9,'min','vi'],[11,'min','vii']])
-const mixolydianScale = new Scale('mixolydian', false, [[0,'maj','I'],[2,'min','ii'],[4,'dim','iii\u1D3C'],[5,'maj','IV'],[7,'min','v'],[9,'min','vi'],[10,'maj','VII']])
-const locrianScale = new Scale('locrian', false, [[0,'dim','i\u1D3C'],[1,'maj','II'],[3,'min','iii'],[5,'min','iv'],[6,'maj','V'],[8,'maj','VI'],[10,'min','vii']])
+const majorScale = new Scale('major', true, false, [[0,'maj','I'],[2,'min','ii'],[4,'min','iii'],[5,'maj','IV'],[7,'maj','V'],[9,'min','vi'],[11,'dim','vii\u1D3C']])
+const minorScale = new Scale('minor',false, true, [[0,'min','i'],[2,'dim','ii\u1D3C'],[3,'maj','III'],[5,'min','iv'],[7,'min','v'],[8,'maj','VI'],[10,'maj','VII']])
+const dorianScale = new Scale('dorian', false, false, [[0,'min','i'],[2,'min','ii'],[3,'maj','III'],[5,'maj','IV'],[7,'min','v'],[9,'dim','vi\u1D3C'],[10,'maj','VII']])
+const phrygianScale = new Scale('phrygian', false, false, [[0,'min','i'],[1,'maj','II'],[3,'maj','III'],[5,'min','iv'],[7,'dim','v\u1D3C'],[8,'maj','VI'],[10,'min','vii']])
+const lydianScale = new Scale('lydian', false, false, [[0,'maj','I'],[2,'maj','II'],[4,'min','iii'],[6,'dim','iv\u1D3C'],[7,'maj','V'],[9,'min','vi'],[11,'min','vii']])
+const mixolydianScale = new Scale('mixolydian', false, false, [[0,'maj','I'],[2,'min','ii'],[4,'dim','iii\u1D3C'],[5,'maj','IV'],[7,'min','v'],[9,'min','vi'],[10,'maj','VII']])
+const locrianScale = new Scale('locrian', false, false, [[0,'dim','i\u1D3C'],[1,'maj','II'],[3,'min','iii'],[5,'min','iv'],[6,'maj','V'],[8,'maj','VI'],[10,'min','vii']])
 
-const checkboxAll = [majorScale.checkboxEl,minorScale.checkboxEl,dorianScale.checkboxEl,phrygianScale.checkboxEl,lydianScale.checkboxEl,minorScale.checkboxEl,locrianScale.checkboxEl]
+//const checkboxAll = [majorScale.checkboxEl,minorScale.checkboxEl,dorianScale.checkboxEl,phrygianScale.checkboxEl,lydianScale.checkboxEl,minorScale.checkboxEl,locrianScale.checkboxEl]
 
 // Create Note Dropdown
 const rootNotes = [
@@ -42,12 +46,21 @@ const rootNotes = [
 [11,'Cb']
 ]
 const rootDropdown = document.querySelector("#note-dropdown")
+const rootDropdown2 = document.querySelector("#note-dropdown-2")
+
+
+
 
 rootNotes.forEach((item) => {
-    var option = document.createElement("option")
+    const option = document.createElement("option")
     option.text = item[1]
     rootDropdown.add(option)
+    
+    const option2 = document.createElement("option")
+    option2.text = item[1]
+    rootDropdown2.add(option2)
 })
+
 
 rootDropdown.addEventListener('change', (e) => {
     ddNote = e.target.value.charAt(0)
@@ -59,8 +72,25 @@ rootDropdown.addEventListener('change', (e) => {
     } else {
         ddNoteMod = 0
     }
-    renderScale()    
+    renderScale(1)    
 })
+
+rootDropdown2.addEventListener('change', (e) => {
+    ddNote2 = e.target.value.charAt(0)
+    
+    if (e.target.value.charAt(1)==='b') {
+        ddNoteMod2 = -1
+    } else if (e.target.value.charAt(1)==='#') {
+        ddNoteMod2 = 1
+    } else {
+        ddNoteMod2 = 0
+    }
+
+    //console.log(ddNote2,ddNoteMod2)
+    renderScale(2)    
+})
+
+
 
 const scalesAll = [majorScale,minorScale,dorianScale,phrygianScale,lydianScale,mixolydianScale,locrianScale]
 
@@ -68,12 +98,24 @@ const scalesAll = [majorScale,minorScale,dorianScale,phrygianScale,lydianScale,m
 scalesAll.forEach((item,index) => {
     item.checkboxEl.addEventListener('change', (e) => {
         item.show = e.target.checked
-        renderScale()
+        renderScale(1)
+        })
+
+    item.checkboxEl2.addEventListener('change', (e) => {
+        item.show2 = e.target.checked
+        renderScale(2)
         })
 })
 
+console.log(scalesAll[1])
+
+scalesAll[0].checkboxEl2.checked = false
+scalesAll[1].checkboxEl2.checked = true
+
+console.log(scalesAll[1].show2)
+//sclaesAll[1].show2 = true
+rootDropdown2.value = 'E'
+
 // Initial Render
-renderScale()
-
-
-console.log('test')
+renderScale(1)
+renderScale(2)
