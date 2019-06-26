@@ -18,31 +18,59 @@ const noteNumbers = [
 ]
 
 function renderScale() {
-    const scaleDiv = document.querySelector('.scale-div')
-    scaleDiv.innerHTML = ''
+    //clear main body
+    const scaleAllDiv = document.querySelector('.scale-all-div')
+    scaleAllDiv.innerHTML = ''
 
     scalesAll.forEach((item) => {
         if (item.show) {
             let scale = getScale(ddNote,ddNoteMod,item)
-            const title = document.createElement('h3')
-            title.textContent = `${ddNote} ${item.name}`
-            scaleDiv.appendChild(title)
-            scale.forEach((item)=>{
-                const chordEl = document.createElement('div')
-                const audioEl = document.createElement('audio')
-                audioEl.src = "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
-                chordEl.textContent = item
-                chordEl.classList.add('note-div')
+
+            const scaleDiv = document.createElement('div') // Scale div
+            scaleDiv.classList.add('wrapper')
+            scaleAllDiv.appendChild(scaleDiv)
+            
+            const scaleTitleDiv = document.createElement('div') // Scale title
+            scaleTitleDiv.textContent = `${ddNote} ${item.name}`
+            scaleTitleDiv.classList.add('scale-name')
+            scaleDiv.appendChild(scaleTitleDiv)
+
+            let scaleDisplayNumbers = [] // Create an array of chord numbers 
+            item.chords.forEach((item)=>{
+                scaleDisplayNumbers.push(item[2])
+                
+            })
+
+            scale.forEach((item,index)=>{
+                const chordEl = document.createElement('div') // individual chord div
+                const chordNameEl = document.createElement('div')
+                const chordNumEl = document.createElement('div')
+                
                 scaleDiv.appendChild(chordEl)
+                chordEl.appendChild(chordNameEl)
+                chordEl.appendChild(chordNumEl)
+                
+                chordEl.classList.add('chord')
+                chordNameEl.classList.add('chord-name')
+                chordNumEl.classList.add('chord-number')
+
+                chordNameEl.textContent = item
+                chordNumEl.textContent = scaleDisplayNumbers[index]
+
+                // audio
+                const audioEl = document.createElement('audio')
+                const sample = "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+                //audioEl.src = "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+                audioEl.src = sample
                 chordEl.addEventListener('click', (e) => {
                     console.log(`${item} clicked`)
                     audioEl.play()  
                 })
-            })
-        //scaleDiv.appendChild(document.createElement('br'))  
+            })  
         }
     })
 }
+
 function getScale(rootNote,rootMod,scaleName) {
     let scale = [rootNote]
     let rootNumber = noteNumbers.find((note) => {
@@ -62,7 +90,6 @@ function getScale(rootNote,rootMod,scaleName) {
             scale[i] = 'A'
         }
         // fill in scale numbers
-        //console.log(scaleName.chords[i][0])
         scaleNumbers[i] = scaleNumbers[0] + scaleName.chords[i][0] // fix this
         
     }

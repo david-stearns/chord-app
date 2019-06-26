@@ -5,20 +5,20 @@ class Scale {
     constructor(name, show, chords) {
         this.name = name // scale name (string)
         this.show = show // show in first group
-        this.chords = chords // chord definition [[root number, 'chord type], ...]
+        this.chords = chords // chord definition [[root number, chord type, chord number], ...]
         this.checkboxEl = document.querySelector(`#${this.name}-checkbox`)
     }
 }
 
-const majorScaleObject = new Scale('major', true, [[0,'maj'],[2,'min'],[4,'min'],[5,'maj'],[7,'maj'],[9,'min'],[11,'dim']])
-const minorScaleObject = new Scale('minor',false, [[0,'min'],[2,'dim'],[3,'maj'],[5,'min'],[7,'min'],[8,'maj'],[10,'maj']])
-const dorianScaleObject = new Scale('dorian', false, [[0,'min'],[2,'min'],[3,'maj'],[5,'maj'],[7,'min'],[9,'dim'],[10,'maj']])
-const phrygianScaleObject = new Scale('phrygian', false, [[0,'min'],[1,'maj'],[3,'maj'],[5,'min'],[7,'dim'],[8,'maj'],[10,'min']])
-const lydianScaleObject = new Scale('lydian', false, [[0,'maj'],[2,'maj'],[4,'min'],[6,'dim'],[7,'maj'],[9,'min'],[11,'min']])
-const mixolydianScaleObject = new Scale('mixolydian', false, [[0,'maj'],[2,'min'],[4,'dim'],[5,'maj'],[7,'min'],[9,'min'],[10,'maj']])
-const locrianScaleObject = new Scale('locrian', false, [[0,'dim'],[1,'maj'],[3,'min'],[5,'min'],[6,'maj'],[8,'maj'],[10,'min']])
+const majorScale = new Scale('major', true, [[0,'maj','I'],[2,'min','ii'],[4,'min','iii'],[5,'maj','IV'],[7,'maj','V'],[9,'min','vi'],[11,'dim','vii\u1D3C']])
+const minorScale = new Scale('minor',false, [[0,'min','i'],[2,'dim','ii\u1D3C'],[3,'maj','III'],[5,'min','iv'],[7,'min','v'],[8,'maj','VI'],[10,'maj','VII']])
+const dorianScale = new Scale('dorian', false, [[0,'min','i'],[2,'min','ii'],[3,'maj','III'],[5,'maj','IV'],[7,'min','v'],[9,'dim','vi\u1D3C'],[10,'maj','VII']])
+const phrygianScale = new Scale('phrygian', false, [[0,'min','i'],[1,'maj','II'],[3,'maj','III'],[5,'min','iv'],[7,'dim','v\u1D3C'],[8,'maj','VI'],[10,'min','vii']])
+const lydianScale = new Scale('lydian', false, [[0,'maj','I'],[2,'maj','II'],[4,'min','iii'],[6,'dim','iv\u1D3C'],[7,'maj','V'],[9,'min','vi'],[11,'min','vii']])
+const mixolydianScale = new Scale('mixolydian', false, [[0,'maj','I'],[2,'min','ii'],[4,'dim','iii\u1D3C'],[5,'maj','IV'],[7,'min','v'],[9,'min','vi'],[10,'maj','VII']])
+const locrianScale = new Scale('locrian', false, [[0,'dim','i\u1D3C'],[1,'maj','II'],[3,'min','iii'],[5,'min','iv'],[6,'maj','V'],[8,'maj','VI'],[10,'min','vii']])
 
-const checkboxAll = [majorScaleObject.checkboxEl,minorScaleObject.checkboxEl,dorianScaleObject.checkboxEl,phrygianScaleObject.checkboxEl,lydianScaleObject.checkboxEl,minorScaleObject.checkboxEl,locrianScaleObject.checkboxEl]
+const checkboxAll = [majorScale.checkboxEl,minorScale.checkboxEl,dorianScale.checkboxEl,phrygianScale.checkboxEl,lydianScale.checkboxEl,minorScale.checkboxEl,locrianScale.checkboxEl]
 
 // Create Note Dropdown
 const rootNotes = [
@@ -62,7 +62,7 @@ rootDropdown.addEventListener('change', (e) => {
     renderScale()    
 })
 
-const scalesAll = [majorScaleObject,minorScaleObject,dorianScaleObject,phrygianScaleObject,lydianScaleObject,mixolydianScaleObject,locrianScaleObject]
+const scalesAll = [majorScale,minorScale,dorianScale,phrygianScale,lydianScale,mixolydianScale,locrianScale]
 
 // Checkboxes
 scalesAll.forEach((item,index) => {
@@ -74,3 +74,6 @@ scalesAll.forEach((item,index) => {
 
 // Initial Render
 renderScale()
+
+
+console.log('test')
