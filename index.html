@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html>
-    <head>
-            <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <header>
+<head>
+
+        <link type="text/css" rel="stylesheet" href="invert-black.css" />
+        <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+        <script type="text/javascript" src="tail.select-full.min.js"></script>
+    <header> 
             <h1>Scale Chords</h1>
-        </header>
-
-        <select id = 'note-dropdown' class='dropdown'>
-        </select>
-
-        <div id="checkboxes">
-            <label for="major"><input type="checkbox" id="major-checkbox" class="scale-checkbox" checked>Major</label>
-            <label for="minor"><input type="checkbox" id="minor-checkbox" class="scale-checkbox">Minor</label>
-            <label for="dorian"><input type="checkbox" id="dorian-checkbox" class="scale-checkbox">Dorian</label>
-            <label for="phrygian'"><input type="checkbox" id="phrygian-checkbox" class="scale-checkbox">Phrygian</label>
-            <label for="lydian"><input type="checkbox" id="lydian-checkbox" class="scale-checkbox">Lydian</label>
-            <label for="mixolydian"><input type="checkbox" id="mixolydian-checkbox" class="scale-checkbox">Mixolydian</label>
-            <label for="locrian"><input type="checkbox" id="locrian-checkbox" class="scale-checkbox">Locrian</label>
+        <div class="scale-selection">
+                <select id = 'note-dropdown' class='select select-note'>
+                        </select>
+                <select class="select" multiple>
+                        <option id="major-checkbox">Major</option>
+                        <option id="minor-checkbox">Minor</option>
+                        <option id="dorian-checkbox">Dorian</option>
+                        <option id="phrygian-checkbox">Phrygian</option>
+                        <option id="lydian-checkbox">Lydian</option>
+                        <option id="mixolydian-checkbox">Mixolydian</option>
+                        <option id="locrian-checkbox">Locrian</option>
+                </select>
+                <select id = 'note-dropdown-2' class='select'>
+                </select>
+                <select class="select" multiple>
+                        <option id="major-checkbox-2">Major</option>
+                        <option id="minor-checkbox-2" >Minor</option>
+                        <option id="dorian-checkbox-2">Dorian</option>
+                        <option id="phrygian-checkbox-2">Phrygian</option>
+                        <option id="lydian-checkbox-2">Lydian</option>
+                        <option id="mixolydian-checkbox-2">Mixolydian</option>
+                        <option id="locrian-checkbox-2">Locrian</option>
+                </select>
         </div>
 
-        <select id = 'note-dropdown-2' class='dropdown'>
-            </select>
-    
-            <div id="checkboxes-2">
-                <label for="major"><input type="checkbox" id="major-checkbox-2" class="scale-checkbox">Major</label>
-                <label for="minor"><input type="checkbox" id="minor-checkbox-2" class="scale-checkbox" checked>Minor</label>
-                <label for="dorian"><input type="checkbox" id="dorian-checkbox-2" class="scale-checkbox">Dorian</label>
-                <label for="phrygian'"><input type="checkbox" id="phrygian-checkbox-2" class="scale-checkbox">Phrygian</label>
-                <label for="lydian"><input type="checkbox" id="lydian-checkbox-2" class="scale-checkbox">Lydian</label>
-                <label for="mixolydian"><input type="checkbox" id="mixolydian-checkbox-2" class="scale-checkbox">Mixolydian</label>
-                <label for="locrian"><input type="checkbox" id="locrian-checkbox-2" class="scale-checkbox">Locrian</label>
-            </div>
-
-
-
         <br>
-        <div class='scale-all-div'></div>
-        <br>
-        <div class='scale-all-div-2'></div>
-        <script src = "chord-functions.js"></script>
-        <script src = "chord-app.js"></script>
-    </body>
+
+    </header>
+
+    <div id='scale-all-div'></div>
+    <br>
+    <div id='scale-all-div-2'></div>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+            tail.select("select", {multiShowCount: false, placeholder: 'Choose scales...' });
+        });
+</script>
+
+    <script src = "chord-functions.js"></script>
+    <script src = "chord-app.js"></script>
+
+</body>
 </html>
+
+
+

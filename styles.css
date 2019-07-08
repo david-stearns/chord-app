@@ -1,9 +1,19 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    margin: 5%;
-    background: rgb(39, 39, 39);
+    background-color: rgb(20, 20, 20);
+    color: rgb(218, 218, 218);
 
-    font-family: 'Open Sans', sans-serif;
+    margin: 2vw;
 
+    font-family: Helvetica, sans-serif;
+    
+    /* Prevent text selection */
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
@@ -13,67 +23,97 @@ body {
                                   supported by Chrome and Opera */
 }
 
-header {
-    color: rgb(224, 224, 224);
-}
-#checkboxes {
-    color: rgb(224, 224, 224);
-    font-family: 'Open Sans', sans-serif;
+h1 {
+    font-size: 36pt;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
 
-.wrapper {
+header{
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    margin-top: 2.5vw;
+    margin-bottom: 2.5vw;
+}
+
+
+
+.scale-selection {
     display: grid;
-    grid-template-rows: 25% 75%;
-    grid-template-columns: repeat(7, 1fr); 
-    grid-row-gap: 5px;
-    grid-column-gap: 10px;
-    padding-top: 40px;
-    color: rgb(224, 224, 224);
-    max-width: 500px;        
+    grid-template-columns: 100px 300px; 
+    grid-template-rows: 30px 30px;  
+    grid-gap: 1vw;
+    /* background-color: red; */
+    margin-bottom: 1vh;
 }
 
-.scale-name {
-    grid-column: 1 / span 8;
-    font-size: 24px;
+
+
+.scale{
+    display: grid;
+    grid-template-columns: repeat(4, 23vw);
+    grid-template-rows: 23vw 23vw;
+    grid-gap: 1.5vw;
+    padding: 0 1.75vw 0 1.75vw;
+
 }
 
 .chord {
-    background: rgb(60, 56, 61);
-    border-radius: 10px;
-    height: 100px;
-    width: 100px;
-
-    display: grid;
-    grid-template-rows: 4fr 1fr;
-
-    border-color: rgb(39, 39, 39);
-    border-style: solid;
-    border-width: 2px;
-
-
-    transition: background-color .1s ease;
+  background: rgb(114, 76, 111);
+  border-radius: 5px;
+  text-align: center;
+  padding: 10%;
     
-
 }
 
 .chord:hover {
-    background:rgb(79, 65, 83);
-    
-}
-.chord:active {
-    transition: border-color .1s ease;
-    border-color: white;
-   
+    background:rgb(79, 65, 83); 
 }
 
+.chord-number {
+    font-family: times;
+    padding: 4%;
+    font-size: 12vw;
+}
 .chord-name {
-    margin: auto;
-    padding-top: 15%;
-    font-size: 24px;
-    font-weight: 300;
+
+    font-size: 4vw;
+    padding: 0%;
+}
+
+.scale-name {
+    font-size: 5vw;
+    padding-left: 1.75vw;
+    padding-top: 3vw;
+    padding-bottom: 1vw;
+
+}
+
+@media only screen and (min-device-width: 500px) and (min-width: 960px) {
+.scale {
+    display: grid;
+    grid-template-columns: repeat(8, 11vw);
+    grid-template-rows: 11vw;
+    grid-gap: 1vw;
+    padding: 0 2.5vw 0 2.5vw;
+}
+.chord-name {
+    font-size: 1.75vw;
+    padding: 0%;
 }
 .chord-number {
-    margin: auto;
-    font-size: 18px;
-    font-weight: 400
+    font-size: 5vw;
+    padding: 8%;
 }
+.scale-name {
+    font-size: 3vw;
+    padding-left: 2.5vw;
+}
+}
+
+
+@media screen and (min-width: 1200px) {
+    .scale-name {
+       font-size: 34px;
+    }
+  }

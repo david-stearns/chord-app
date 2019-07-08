@@ -1,8 +1,3 @@
-let ddNote = 'C'
-let ddNoteMod = 0
-let ddNote2 = 'E'
-let ddNoteMod2 = 0
-
 class Scale {
     constructor(name, show, show2, chords) {
         this.name = name // scale name (string)
@@ -22,9 +17,7 @@ const lydianScale = new Scale('lydian', false, false, [[0,'maj','I'],[2,'maj','I
 const mixolydianScale = new Scale('mixolydian', false, false, [[0,'maj','I'],[2,'min','ii'],[4,'dim','iii\u1D3C'],[5,'maj','IV'],[7,'min','v'],[9,'min','vi'],[10,'maj','VII']])
 const locrianScale = new Scale('locrian', false, false, [[0,'dim','i\u1D3C'],[1,'maj','II'],[3,'min','iii'],[5,'min','iv'],[6,'maj','V'],[8,'maj','VI'],[10,'min','vii']])
 
-//const checkboxAll = [majorScale.checkboxEl,minorScale.checkboxEl,dorianScale.checkboxEl,phrygianScale.checkboxEl,lydianScale.checkboxEl,minorScale.checkboxEl,locrianScale.checkboxEl]
-
-// Create Note Dropdown
+// Create Note Dropdowns
 const rootNotes = [
 [0,'C'],
 [1,'C#'],
@@ -45,11 +38,10 @@ const rootNotes = [
 [11,'B'],
 [11,'Cb']
 ]
+
+
 const rootDropdown = document.querySelector("#note-dropdown")
 const rootDropdown2 = document.querySelector("#note-dropdown-2")
-
-
-
 
 rootNotes.forEach((item) => {
     const option = document.createElement("option")
@@ -60,7 +52,6 @@ rootNotes.forEach((item) => {
     option2.text = item[1]
     rootDropdown2.add(option2)
 })
-
 
 rootDropdown.addEventListener('change', (e) => {
     ddNote = e.target.value.charAt(0)
@@ -86,18 +77,16 @@ rootDropdown2.addEventListener('change', (e) => {
         ddNoteMod2 = 0
     }
 
-    //console.log(ddNote2,ddNoteMod2)
     renderScale(2)    
 })
 
-
-
+// Create Scale Checkboxes
 const scalesAll = [majorScale,minorScale,dorianScale,phrygianScale,lydianScale,mixolydianScale,locrianScale]
 
-// Checkboxes
 scalesAll.forEach((item,index) => {
-    item.checkboxEl.addEventListener('change', (e) => {
-        item.show = e.target.checked
+    item.checkboxEl.addEventListener('click', (e) => {
+        item.show = e.target.selected
+        console.log(e.target.selected)
         renderScale(1)
         })
 
@@ -107,15 +96,16 @@ scalesAll.forEach((item,index) => {
         })
 })
 
-console.log(scalesAll[1])
+// Initial Render
+let ddNote = 'C'
+let ddNoteMod = 0
+let ddNote2 = 'E'
+let ddNoteMod2 = 0
 
-scalesAll[0].checkboxEl2.checked = false
+scalesAll[0].checkboxEl.checked = true
 scalesAll[1].checkboxEl2.checked = true
-
-console.log(scalesAll[1].show2)
-//sclaesAll[1].show2 = true
+rootDropdown.value = 'C'
 rootDropdown2.value = 'E'
 
-// Initial Render
 renderScale(1)
 renderScale(2)

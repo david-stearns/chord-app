@@ -18,26 +18,26 @@ const noteNumbers = [
 ]
 
 function renderScale(scaleGroup) {
-
-
-    const scaleAllDiv = (scaleGroup === 1) ? document.querySelector('.scale-all-div') : document.querySelector('.scale-all-div-2')
+    const scaleAllDiv = (scaleGroup === 1) ? document.querySelector('#scale-all-div') : document.querySelector('#scale-all-div-2')
     scaleAllDiv.innerHTML = ''
 
     scalesAll.forEach((item) => {
         if ((scaleGroup === 1 && item.show) || (scaleGroup === 2 && item.show2)) {
             let scale = (scaleGroup === 1) ? getScale(ddNote,ddNoteMod,item) : getScale(ddNote2,ddNoteMod2,item)
-            const audioChords = scale[1] // Names of audio files
-            scale = scale[0] // Chord Names
+            const audioChords = scale[1] // Store names of audio files
+            scale = scale[0] // Store chord Names
 
             const scaleDiv = document.createElement('div') // Scale div
-            scaleDiv.classList.add('wrapper')
+            scaleDiv.classList.add('scale')
             scaleAllDiv.appendChild(scaleDiv)
             
             const scaleTitleDiv = document.createElement('div') // Scale title
             if (scaleGroup === 1) {
                 scaleTitleDiv.textContent = `${ddNote} ${item.name}`
+                scaleDiv.id = `${ddNote} ${item.name}` // for scale playback test
             } else {
                 scaleTitleDiv.textContent = `${ddNote2} ${item.name}`
+                scaleDiv.id = `${ddNote2} ${item.name}`// for scale playback test
             }
             
             scaleTitleDiv.classList.add('scale-name')
@@ -63,19 +63,33 @@ function renderScale(scaleGroup) {
                 chordNumEl.classList.add('chord-number')
 
                 chordNameEl.textContent = item
+                chordEl.id = (`${scaleDiv.id}`+`${scale[0]}`).replace(/ /g,"-") // for scale playback test
                 chordNumEl.textContent = scaleDisplayNumbers[index]
 
-                // audio
+                // Audio playback on click
                 const audioEl = document.createElement('audio')
-
                 const sample = 'audio/' + audioChords[index] +'.mp3'
                 audioEl.src = sample
                 chordEl.addEventListener('click', (e) => {
                     //console.log(`${item} clicked`)
-                    console.log(sample)
-                    audioEl.play()  
+                    console.log(chordEl.id)
+                    //console.log(sample)
+                    audioEl.pause();
+                    audioEl.currentTime = 0;
+                    audioEl.play()
+                    //console.log(scaleDiv.id)  
                 })
-            })  
+            })
+            
+            // Playback scale on title click
+            // scaleTitleDiv.addEventListener('click', (e) => {
+            //     //const scalePlayback = document.querySelector
+            //     console.log((`${scaleDiv.id}`+`${scale[0]}`).replace(/ /g,"-"))
+            //     let playID = (`${scaleDiv.id}`+`${scale[0]}`).replace(/ /g,"-")
+            //     let playEl = document.querySelector('#'+playID)
+            //     console.log(playEl)
+            //     playEl.click()
+            // })
         }
     })
 }
@@ -89,25 +103,23 @@ function getScale(rootNote,rootMod,scaleName) {
     if (rootNumber < 0) {
         rootNumber += 12
     }
-    let scaleNumbers = [rootNumber] //reduce extra variable here?
+    let scaleNumbers = [rootNumber]
 
-    
     for (i = 1; i < 7; i++) {
-        //get basic letter roots (c,d,e,f...)
+        // Get basic letter roots (c,d,e,f...)
         if (scale[i-1] < 'G'){
             scale[i] = String.fromCharCode(scale[i-1].charCodeAt() + 1)
         } else {
             scale[i] = 'A'
         }
-        // fill in scale numbers
-        scaleNumbers[i] = scaleNumbers[0] + scaleName.chords[i][0] // fix this
-        
+        // Fill in scale numbers
+        scaleNumbers[i] = scaleNumbers[0] + scaleName.chords[i][0]        
     }
 
     // Chord names for audio playback
     let audioChords = scaleNumbers.slice(0)
 
-    // Add accidentals
+    // Add accidentals (b,#,etc.)
     let n = []
     scale.forEach((item,index) => {
         n[index] = noteNumbers.find((note,index) => {
@@ -129,10 +141,8 @@ function getScale(rootNote,rootMod,scaleName) {
 
         // Add chord types (maj, min, dim)
         scale[index] += ' ' + scaleName.chords[index][1]
-
         audioChords[index] += scaleName.chords[index][1]
     })
 
     return [scale, audioChords]
-
 }
