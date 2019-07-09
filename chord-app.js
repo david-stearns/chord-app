@@ -4,8 +4,6 @@ class Scale {
         this.show = show // show in first group
         this.show2 = show2 // show in second group
         this.chords = chords // chord definition [[root number, chord type, chord number], ...]
-        this.checkboxEl = document.querySelector(`#${this.name}-checkbox`)
-        this.checkboxEl2 = document.querySelector(`#${this.name}-checkbox-2`)
     }
 }
 
@@ -39,10 +37,10 @@ const rootNotes = [
 [11,'Cb']
 ]
 
-
 const rootDropdown = document.querySelector("#note-dropdown")
 const rootDropdown2 = document.querySelector("#note-dropdown-2")
 
+// Add note options to dropdowns
 rootNotes.forEach((item) => {
     const option = document.createElement("option")
     option.text = item[1]
@@ -53,9 +51,11 @@ rootNotes.forEach((item) => {
     rootDropdown2.add(option2)
 })
 
+
 rootDropdown.addEventListener('change', (e) => {
-    ddNote = e.target.value.charAt(0)
-    
+    ddNoteTitle = e.target.value // Used for scale display title
+    ddNote = e.target.value.charAt(0) // Used to calculate scale
+    // Convert flat or sharp to num value
     if (e.target.value.charAt(1)==='b') {
         ddNoteMod = -1
     } else if (e.target.value.charAt(1)==='#') {
@@ -63,10 +63,11 @@ rootDropdown.addEventListener('change', (e) => {
     } else {
         ddNoteMod = 0
     }
-    renderScale(1)    
+    renderAllScales() 
 })
 
 rootDropdown2.addEventListener('change', (e) => {
+    ddNote2Title = e.target.value
     ddNote2 = e.target.value.charAt(0)
     
     if (e.target.value.charAt(1)==='b') {
@@ -76,36 +77,46 @@ rootDropdown2.addEventListener('change', (e) => {
     } else {
         ddNoteMod2 = 0
     }
-
-    renderScale(2)    
+    renderAllScales()    
 })
 
-// Create Scale Checkboxes
+// Create Scale Dropdowns
 const scalesAll = [majorScale,minorScale,dorianScale,phrygianScale,lydianScale,mixolydianScale,locrianScale]
+const scaleSelectEl = document.querySelector('#scale-select')
+const scaleSelect2El = document.querySelector('#scale-select-2')
 
-scalesAll.forEach((item,index) => {
-    item.checkboxEl.addEventListener('click', (e) => {
-        item.show = e.target.selected
-        console.log(e.target.selected)
-        renderScale(1)
-        })
 
-    item.checkboxEl2.addEventListener('change', (e) => {
-        item.show2 = e.target.checked
-        renderScale(2)
-        })
+scaleSelectEl.addEventListener('change', (e) => {
+    scalesAll.forEach((item,index) => {
+        item.show = e.target.options[index].selected
+        renderAllScales() 
+    })
 })
 
+scaleSelect2El.addEventListener('change', (e) => {
+    scalesAll.forEach((item,index) => {
+        item.show2 = e.target.options[index].selected
+        renderAllScales() 
+    })
+})
+
+
+const scaleColors = ['color1','color2','color3','color4']
+let scaleColorNo = -1
+let scaleColor = scaleColors[scaleColorNo]
 // Initial Render
 let ddNote = 'C'
 let ddNoteMod = 0
+let ddNoteTitle = 'C'
 let ddNote2 = 'E'
 let ddNoteMod2 = 0
+let ddNote2Title = 'E'
 
-scalesAll[0].checkboxEl.checked = true
-scalesAll[1].checkboxEl2.checked = true
+scaleSelectEl.options[0].selected = true
+scaleSelect2El.options[1].selected = true
+
 rootDropdown.value = 'C'
 rootDropdown2.value = 'E'
 
-renderScale(1)
-renderScale(2)
+renderAllScales() 
+

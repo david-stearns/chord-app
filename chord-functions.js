@@ -17,6 +17,13 @@ const noteNumbers = [
     [24,'C']
 ]
 
+function renderAllScales() {
+    scaleColorNo = -1
+    renderScale(1)
+    renderScale(2)
+
+}
+
 function renderScale(scaleGroup) {
     const scaleAllDiv = (scaleGroup === 1) ? document.querySelector('#scale-all-div') : document.querySelector('#scale-all-div-2')
     scaleAllDiv.innerHTML = ''
@@ -32,11 +39,12 @@ function renderScale(scaleGroup) {
             scaleAllDiv.appendChild(scaleDiv)
             
             const scaleTitleDiv = document.createElement('div') // Scale title
+    
             if (scaleGroup === 1) {
-                scaleTitleDiv.textContent = `${ddNote} ${item.name}`
+                scaleTitleDiv.textContent = `${ddNoteTitle} ${item.name}`
                 scaleDiv.id = `${ddNote} ${item.name}` // for scale playback test
             } else {
-                scaleTitleDiv.textContent = `${ddNote2} ${item.name}`
+                scaleTitleDiv.textContent = `${ddNote2Title} ${item.name}`
                 scaleDiv.id = `${ddNote2} ${item.name}`// for scale playback test
             }
             
@@ -49,6 +57,13 @@ function renderScale(scaleGroup) {
                 
             })
 
+            scaleColorNo ++;
+            if (scaleColorNo > scaleColors.length) {
+                scaleColorNo = 0;
+            }
+
+            scaleColor = scaleColors[scaleColorNo]
+
             scale.forEach((item,index)=>{
                 const chordEl = document.createElement('div') // individual chord div
                 const chordNameEl = document.createElement('div')
@@ -59,6 +74,7 @@ function renderScale(scaleGroup) {
                 chordEl.appendChild(chordNumEl)
                 
                 chordEl.classList.add('chord')
+                chordEl.classList.add(scaleColor)
                 chordNameEl.classList.add('chord-name')
                 chordNumEl.classList.add('chord-number')
 
@@ -67,29 +83,18 @@ function renderScale(scaleGroup) {
                 chordNumEl.textContent = scaleDisplayNumbers[index]
 
                 // Audio playback on click
-                const audioEl = document.createElement('audio')
-                const sample = 'audio/' + audioChords[index] +'.mp3'
-                audioEl.src = sample
-                chordEl.addEventListener('click', (e) => {
-                    //console.log(`${item} clicked`)
-                    console.log(chordEl.id)
-                    //console.log(sample)
-                    audioEl.pause();
-                    audioEl.currentTime = 0;
-                    audioEl.play()
-                    //console.log(scaleDiv.id)  
-                })
+                // const audioEl = document.createElement('audio')
+                // const sample = 'audio/' + audioChords[index] +'.mp3'
+                // audioEl.src = sample
+                // chordEl.addEventListener('click', (e) => {
+                //     console.log(chordEl.id)
+                //     audioEl.pause();
+                //     audioEl.currentTime = 0;
+                //     audioEl.play()
+
+                // })
             })
-            
-            // Playback scale on title click
-            // scaleTitleDiv.addEventListener('click', (e) => {
-            //     //const scalePlayback = document.querySelector
-            //     console.log((`${scaleDiv.id}`+`${scale[0]}`).replace(/ /g,"-"))
-            //     let playID = (`${scaleDiv.id}`+`${scale[0]}`).replace(/ /g,"-")
-            //     let playEl = document.querySelector('#'+playID)
-            //     console.log(playEl)
-            //     playEl.click()
-            // })
+
         }
     })
 }

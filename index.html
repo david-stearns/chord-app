@@ -4,15 +4,20 @@
 
         <link type="text/css" rel="stylesheet" href="invert-black.css" />
         <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
         <script type="text/javascript" src="tail.select-full.min.js"></script>
     <header> 
-            <h1>Scale Chords</h1>
+        <div class='header'>
+        <object type="image/svg+xml" data="piano-white.svg" class='logo'></object>
+        <div class = "title">Scale Chords</div>
+</div>
+              
         <div class="scale-selection">
-                <select id = 'note-dropdown' class='select select-note'>
+                <select id = "note-dropdown" class="select select-note">
                         </select>
-                <select class="select" multiple>
+                <select id = "scale-select" class="select" multiple>
                         <option id="major-checkbox">Major</option>
                         <option id="minor-checkbox">Minor</option>
                         <option id="dorian-checkbox">Dorian</option>
@@ -23,7 +28,7 @@
                 </select>
                 <select id = 'note-dropdown-2' class='select'>
                 </select>
-                <select class="select" multiple>
+                <select id = "scale-select-2" class="select" multiple>
                         <option id="major-checkbox-2">Major</option>
                         <option id="minor-checkbox-2" >Minor</option>
                         <option id="dorian-checkbox-2">Dorian</option>
@@ -33,13 +38,11 @@
                         <option id="locrian-checkbox-2">Locrian</option>
                 </select>
         </div>
-
-        <br>
+       
 
     </header>
 
     <div id='scale-all-div'></div>
-    <br>
     <div id='scale-all-div-2'></div>
 
     <script type="text/javascript">

@@ -9,7 +9,7 @@ body {
     background-color: rgb(20, 20, 20);
     color: rgb(218, 218, 218);
 
-    margin: 2vw;
+    margin: 0vw;
 
     font-family: Helvetica, sans-serif;
     
@@ -23,39 +23,78 @@ body {
                                   supported by Chrome and Opera */
 }
 
-h1 {
-    font-size: 36pt;
-    margin-top: 5vh;
+
+.header {
+    display: grid;
+    grid-template-columns: 12vw 90vw;
+    grid-template-rows: 12vh;
+    grid-gap: 5vw;
     margin-bottom: 5vh;
+}
+.logo {
+    height: 90%;
+    
+}
+.title {
+
+    font-family: 'Pacifico', cursive;
+    font-size: 80pt;
+    display: flex;
+    /* justify-content: center;  */
+    padding-left: 15vw;
+    align-items: center;
 }
 
 header{
-    margin-left: 2.5vw;
-    margin-right: 2.5vw;
-    margin-top: 2.5vw;
-    margin-bottom: 2.5vw;
+    margin: 2.5vw;
 }
 
 
-
+/* Dropdowns */
 .scale-selection {
     display: grid;
-    grid-template-columns: 100px 300px; 
-    grid-template-rows: 30px 30px;  
-    grid-gap: 1vw;
-    /* background-color: red; */
-    margin-bottom: 1vh;
+    grid-template-columns: 20vw 60vw; 
+    grid-template-rows: 10vw 10vw;  
+    grid-gap: 1.5vh;
+    margin-bottom: 4vh;   
+}
+
+.tail-select {
+    width: 100%;
+}
+
+.tail-select, .tail-select * {
+    font-size: 5vw;
+}
+
+.tail-select .select-dropdown ul, .tail-select .select-dropdown ul li {
+    line-height: 100%;
 }
 
 
+.scale-all-div {
+    padding: 0;
+    margin: 0;
+}
 
+
+/* Shown Scales */
 .scale{
     display: grid;
     grid-template-columns: repeat(4, 23vw);
     grid-template-rows: 23vw 23vw;
     grid-gap: 1.5vw;
-    padding: 0 1.75vw 0 1.75vw;
+    padding: 0 1.75vw 3vw 1.75vw;
 
+}
+
+@keyframes fadeIn{
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .chord {
@@ -64,6 +103,22 @@ header{
   text-align: center;
   padding: 10%;
     
+}
+
+.color1 {
+    background: rgb(114, 76, 111);
+}
+
+.color2 {
+    background: rgb(94, 76, 114);
+}
+
+.color3 {
+    background: rgb(76, 82, 114);
+}
+
+.color4 {
+    background: rgb(76, 110, 114);
 }
 
 .chord:hover {
@@ -82,6 +137,7 @@ header{
 }
 
 .scale-name {
+    /* font-family: 'Pacifico', cursive; */
     font-size: 5vw;
     padding-left: 1.75vw;
     padding-top: 3vw;
@@ -89,31 +145,83 @@ header{
 
 }
 
-@media only screen and (min-device-width: 500px) and (min-width: 960px) {
-.scale {
-    display: grid;
-    grid-template-columns: repeat(8, 11vw);
-    grid-template-rows: 11vw;
-    grid-gap: 1vw;
-    padding: 0 2.5vw 0 2.5vw;
-}
-.chord-name {
-    font-size: 1.75vw;
-    padding: 0%;
-}
-.chord-number {
-    font-size: 5vw;
-    padding: 8%;
-}
-.scale-name {
-    font-size: 3vw;
-    padding-left: 2.5vw;
-}
+
+
+@media only screen and (min-device-width: 500px) and (min-width: 900px) {
+    h1 {
+        font-size: 36pt;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+    }
+
+    .header {
+        display: grid;
+        grid-template-columns: 60px 80vw;
+        grid-template-rows: 80px;
+        grid-gap: 5vw;
+        margin-bottom: 5vh;
+    }
+    
+    .title {
+        font-size: 40pt;
+        padding-left: 0vw;
+    }
+    .scale-selection {
+        display: grid;
+        grid-template-columns: 100px 300px; 
+        grid-template-rows: 30px 30px;  
+        grid-gap: 1vw;
+        
+        /* background-color: red; */
+    
+        margin: 0px;
+        padding:0px;
+    }
+    
+    .scale {
+        display: grid;
+        grid-template-columns: repeat(8, 11vw);
+        grid-template-rows: 3vw 11vw;
+        grid-gap: 1vw;
+        padding: 1.5vw 2.5vw 0 2.5vw;
+        /* background-color: red; */
+    }
+    .chord-name {
+        font-size: 1.75vw;
+        padding: 0%;
+    }
+    .chord-number {
+        font-size: 5vw;
+        padding: 8%;
+    }
+    .scale-name {
+        grid-column: 1/9;
+        /* background-color: blue; */
+        font-size: 18pt;
+        padding: 0;
+        /* padding-left: 2.5vw; */
+    }
+
+    .tail-select, .tail-select * {
+        font-size: 12pt;
+    }
 }
 
 
 @media screen and (min-width: 1200px) {
     .scale-name {
        font-size: 34px;
+    }
+    .scale {
+        display: grid;
+        grid-template-columns: repeat(8, 132px);
+        grid-template-rows: 40px 132px;
+        /* background-color: red; */
+    }
+    .chord-number {
+        font-size: 62px;
+    }
+    .chord-name {
+        font-size: 22px;
     }
   }
