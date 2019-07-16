@@ -68,31 +68,34 @@ function renderScale(scaleGroup) {
                 const chordEl = document.createElement('div') // individual chord div
                 const chordNameEl = document.createElement('div')
                 const chordNumEl = document.createElement('div')
-                
+                const chordNumTextEl = document.createElement('div')
+
                 scaleDiv.appendChild(chordEl)
                 chordEl.appendChild(chordNameEl)
                 chordEl.appendChild(chordNumEl)
+                chordNumEl.appendChild(chordNumTextEl)
                 
                 chordEl.classList.add('chord')
                 chordEl.classList.add(scaleColor)
                 chordNameEl.classList.add('chord-name')
                 chordNumEl.classList.add('chord-number')
+                chordNumTextEl.classList.add('chord-number-text')
 
                 chordNameEl.textContent = item
                 chordEl.id = (`${scaleDiv.id}`+`${scale[0]}`).replace(/ /g,"-") // for scale playback test
-                chordNumEl.textContent = scaleDisplayNumbers[index]
+                // chordNumEl.textContent = scaleDisplayNumbers[index]
+                chordNumTextEl.textContent = scaleDisplayNumbers[index]
 
-                // Audio playback on click
-                // const audioEl = document.createElement('audio')
-                // const sample = 'audio/' + audioChords[index] +'.mp3'
-                // audioEl.src = sample
-                // chordEl.addEventListener('click', (e) => {
-                //     console.log(chordEl.id)
-                //     audioEl.pause();
-                //     audioEl.currentTime = 0;
-                //     audioEl.play()
+                //Audio playback on click
+                const audioEl = document.createElement('audio')
+                const sample = 'audio/' + audioChords[index] +'.mp3'
+                audioEl.src = sample
+                chordEl.addEventListener('click', (e) => {
+                    audioEl.pause();
+                    audioEl.currentTime = 0;
+                    audioEl.play()
 
-                // })
+                })
             })
 
         }
